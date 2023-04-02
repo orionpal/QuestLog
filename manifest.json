@@ -1,11 +1,11 @@
 {
-	"id": "obsidian-sample-plugin",
-	"name": "Sample Plugin",
+	"id": "obsidian-questlog-plugin",
+	"name": "Quest Log Plugin",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "This is a sample plugin for Obsidian. This plugin demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"description": "This plugin generates a quest log for a user",
+	"author": "Orion",
+	"authorUrl": "https://github.com/orionpal",
+	"fundingUrl": "https://github.com/orionpal",
 	"isDesktopOnly": false
 }

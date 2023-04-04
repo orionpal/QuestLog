@@ -1,5 +1,6 @@
-import { sampleCommand, sampleEditorCommand } from 'commands';
+import { sampleCommand, sampleCommandWithCheck, sampleEditorCommand } from 'commands';
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
+import { generateQuestLog } from 'generation';
 
 // Remember to rename these classes and interfaces!
 
@@ -20,7 +21,8 @@ export default class MyPlugin extends Plugin {
 		// This creates an icon in the left ribbon.
 		const ribbonIconEl = this.addRibbonIcon('clipboard-list', 'Quest Log', (evt: MouseEvent) => {
 			// Called when the user clicks the icon. TODO: do I need to add code for mobile use?
-			new Notice('This is a notice!');
+			generateQuestLog(this.app);
+			new Notice('I hope I created a file!');
 		});
 
 		// This adds a simple command that can be triggered anywhere
@@ -33,24 +35,9 @@ export default class MyPlugin extends Plugin {
 		);
 		
 		// This adds a complex command that can check whether the current state of the app allows execution of the command
-		this.addCommand({
-			id: 'open-sample-modal-complex',
-			name: 'Open sample modal (complex)',
-			checkCallback: (checking: boolean) => {
-				// Conditions to check
-				const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
-				if (markdownView) {
-					// If checking is true, we're simply "checking" if the command can be run.
-					// If checking is false, then we want to actually perform the operation.
-					if (!checking) {
-						new SampleModal(this.app).open();
-					}
-
-					// This command will only show up in Command Palette when the check function returns true
-					return true;
-				}
-			}
-		});
+		this.addCommand(
+			sampleCommandWithCheck(this.app)
+		);
 
 		// This adds a settings tab so the user can configure various aspects of the plugin
 		this.addSettingTab(new SampleSettingTab(this.app, this));

@@ -34,10 +34,10 @@ export class QuestLogSettingTab extends PluginSettingTab {
 			.setDesc('When you think your day should start (when sleep phase ends) in military time')
 			.addText(text => text
 				.setPlaceholder('08:00')
-				.setValue(this.plugin.settings.mySetting)
+				.setValue(this.plugin.settings.StartDay)
 				.onChange(async (value) => {
 					console.log('Secret: ' + value);
-					this.plugin.settings.mySetting = value;
+					this.plugin.settings.StartDay = value;
 					await this.plugin.saveSettings();
 				}));
         new Setting(containerEl)
@@ -45,10 +45,10 @@ export class QuestLogSettingTab extends PluginSettingTab {
             .setDesc('How much time you think you should sleep')
             .addText(text => text
                 .setPlaceholder('08:00')
-                .setValue(this.plugin.settings.mySetting)
+                .setValue(this.plugin.settings.SleepDuration)
                 .onChange(async (value) => {
                     console.log('Secret: ' + value);
-                    this.plugin.settings.mySetting = value;
+                    this.plugin.settings.SleepDuration = value;
                     await this.plugin.saveSettings();
                 }));
 	}

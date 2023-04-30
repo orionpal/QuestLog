@@ -22,7 +22,7 @@ Generated Quest-Logs use the Tasks community plugin formatting
 - Make a pull request at https://github.com/obsidianmd/obsidian-releases to add your plugin.
 
 ## Manually installing the plugin
-
+- `npm run dev` if checking changes, this will make  the main.js file too
 - Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/your-plugin-id/`.
 
 ## Improve code quality with eslint (optional)

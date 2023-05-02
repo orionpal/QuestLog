@@ -15,7 +15,7 @@ export default class QuestLog extends Plugin {
 		const ribbonIconEl = this.addRibbonIcon('clipboard-list', 'Quest Log', (evt: MouseEvent) => {
 			// Called when the user clicks the icon. TODO: do I need to add code for mobile use?
 			generateQuestLog(this.app);
-			new Notice('I hope I created a file!');
+			new Notice("Created today's questlog");
 		});
 
 		// This adds a simple command that can be triggered anywhere

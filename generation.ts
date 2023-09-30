@@ -6,6 +6,8 @@ export async function generateQuestLog(app: App) {
     // make task blocks for eating, separating by some TODO: method
     const taskFormat = `- [ ] `
     // Morning phase
+    const morningMark = `~ 8:00 Wakeup :D ~` //TODO: Maybe add randomly generated greetings/goodmornings
+    // Pull from folder of form
     const morning = taskFormat + `8:00 | brush teeth, eat, think about what's going on in the day. (visit [[planning]] for guidelines?)`
     // Day phase
     const day = taskFormat + `10:00 | Live ur life`

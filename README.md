@@ -1,15 +1,23 @@
-## Usage/Purpose
+## Purpose
 The purpose of this is to automate the planning of ones day by generating a todo-list each morning. Prior to using this you should do some thinking on your own of what you want to include in a day, mainly for morning and nighttime routines
 
-To generate a list from things you want to do, tag the notes that include that information with #Morning-Ritual or #Night-Ritual
+## How to Use
+- For the start and end of days:
+  Have two separate notes that have a new-line-seperated descriptions of things you need to do in the morning/night. Tag the notes that include new line seperated #Morning-Ritual or #Night-Ritual
+
+- For general things you need to do in life:
+  Not sure about the format yet, I'm debating whether or not to have a single note with brief descriptions of what to do and a priority value next to it OR to say each task should be a different note and just tag them as a task, which sounds easier to code a generation but harder on the user.
 
 ## Dependencies
 Generated Quest-Logs use the Tasks community plugin formatting
 
 
 ## Future Plans
-
-I'd like to create some formalization over what goes into a Goal so that this can generate certain time blocks to contribute towards a goal in a well rounded way, I feel like planning for bigger goals can be overwhelming at times
+- formalization of format of Tasks List
+- integration of Tasks with basic priority
+- formalization for the format of a Goal
+- integration of priority for Tasks/Goals with more thought on the interaction/conversion value
+- weekly tracking to make days well rounded
 
 
 ## Releasing new releases

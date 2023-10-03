@@ -64,8 +64,8 @@ export async function generateQuestLog(app: App, settings: QuestLogSettings) {
         body.push(error)
     }
     
-    // sleep phase | 8 hours | Sleep, bitch
-    const sleepMark = `#### ~ ${sleepPhaseStartTime} Go sleep mother fucker, NO SCREENS ~`
+    // sleep phase | 8 hours | Sleep, dood
+    const sleepMark = `#### ~ ${sleepPhaseStartTime} Go sleep you walnut, NO SCREENS ~`
     body.push(sleepMark);
 
     // For now let's just create a new note, TODO: add updating functionality? idk

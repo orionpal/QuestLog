@@ -3,7 +3,7 @@ The purpose of this is to automate the planning of ones day by generating a todo
 
 ## How to Use
 - For the start and end of days:
-  Have two separate notes that have a new-line-seperated descriptions of things you need to do in the morning/night. Tag the notes that include new line seperated #Morning-Ritual or #Night-Ritual
+  Have two separate notes that have a new-line-seperated descriptions of things you need to do in the morning/night. Tag the notes that include new line seperated #morning-ritual or #night-ritual
 
 - For general things you need to do in life:
   Not sure about the format yet, I'm debating whether or not to have a single note with brief descriptions of what to do and a priority value next to it OR to say each task should be a different note and just tag them as a task, which sounds easier to code a generation but harder on the user.

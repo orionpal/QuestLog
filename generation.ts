@@ -1,60 +1,98 @@
-import { App, TagCache, TFile } from "obsidian";
+import { App, TFile } from "obsidian";
 import { QuestLogSettings } from "questlog-settings";
 
-// hope this is fine
+// TODO: Add functionality for optional tasks?
 export async function generateQuestLog(app: App, settings: QuestLogSettings) {
-    var body = []
-    // make task blocks for eating, separating by some TODO: method
-    const taskFormat = `- [ ] `
-    // Morning phase
-    const morningMark = `~ ${settings.StartDay} Wakeup :D ~` //TODO: Maybe add randomly generated greetings/goodmornings
-    const morningRitualTag = '#Morning-Ritual';
+    var body = [];
+    // Task blocks
+    const taskFormat = `- [ ] `;
+    // Time stamp land marks
+    const startHours = parseInt(settings.StartDay.split(':')[0])
+    const startMinutes = settings.StartDay.split(':')[1]
+
+    const morningStartTime = settings.StartDay
+    const dayPhase1StartTime = `${startHours + 2}` + ':' + startMinutes
+    const dayPhase2StartTime = `${startHours + 10}` + ':' + startMinutes
+    const nightPhaseStartTime = `${startHours + 14}` + ':' + startMinutes
+    const sleepPhaseStartTime = `${startHours + 16}` + ':' + startMinutes
+    
+    // Morning phase | 2 hours | upkeep, maintenence, general plan
+    const morningMark = `#### ~ ${morningStartTime} Wakeup :D ~` //TODO: Maybe add randomly generated greetings/goodmornings
     body.push(morningMark)
 
+    const morningRitualTag = '#morning-ritual';
     try {
-        const allFiles = app.vault.getFiles();
-        const morningRituals = allFiles.filter(
-            (file: TFile) => hasTag(app, file, morningRitualTag)
-        )
-        body.push(morningRituals.length)
-        const content = await app.vault.read(morningRituals[0])
-        body.push(content);
+        const morningRituals = getFilesWithTag(app, morningRitualTag)
+        const content = await app.vault.read(morningRituals[0]) //  Default to first file found
+        const contentLines = content.split("\n");
+        for (var line of contentLines) {
+            // Make sure we're not pulling tags, maybe I should be more strict about the format of the file
+            if (line[0]!='#') {
+                body.push(taskFormat + line);
+            }   
+        }
     } catch(error) {
         body.push(error)
     }
-    const morning = taskFormat + `8:00 | brush teeth, eat, think about what's going on in the day. (visit [[planning]] for guidelines?)`
-    // Day phase
-    const day = taskFormat + `10:00 | Live ur life`
-    const eating = taskFormat + `12:00 | eat some fuuuucking shit my dude`
-    const daypart2 = taskFormat + `14:00 | do some exercise idk`
-    const eatingpart2 = taskFormat + `19:00 | eat some shiiieeeeeeeet`
-    // end phase
-    const ending = taskFormat + `23:00 | do some planning for tomorrow, read or somethin, no computer`
-    // sleep phase
-    const sleep = taskFormat + `24:00 | go sleep mother fucker`
-    // make task block for exercising? Potentially from file
-    // make task block for expression
-    // make task block for intelllect
-    // Yeeeeee I think that's it, how are we gonna organize the timing though?
+
+    // Day phase 1 | 8 hours | Intentionally Goal specific activities
+    const dayMark = `#### ~ ${dayPhase1StartTime} Time to start your day for real >:3 DID YOU EAT??? ~`
+    body.push(dayMark)
+    body.push(taskFormat + 'placeholder for "being productive"')
     
-    const date = new Date().toISOString().substr(0, 10);
-    // For now let's just create a new note
+    // Day phase 2 | 4 hours | Maleable, could be pretty much anything
+    const dayMark2 = `#### ~ ${dayPhase2StartTime} Good job so far! You can relax a bit :) ~`
+    body.push(dayMark2)
+    body.push(taskFormat + 'placeholder for doing whatever')
+
+    // Night phase | 2 hours | reflect, plan, chill
+    const nightMark = `#### ~ ${nightPhaseStartTime} Woooo! Another day down!!! What does tomorrow have in store :O ~`
+    body.push(nightMark);
+    
+    const nightRitualTag = '#night-ritual';
+    try {
+        const nightRituals = getFilesWithTag(app, nightRitualTag)
+        const content = await app.vault.read(nightRituals[0]) //  Default to first file found
+        const contentLines = content.split("\n");
+        for (var line of contentLines) {
+            // Make sure we're not pulling tags, maybe I should be more strict about the format of the file
+            if (line[0]!='#') {
+                body.push(taskFormat + line);
+            }   
+        }
+    } catch(error) {
+        body.push(error)
+    }
+    
+    // sleep phase | 8 hours | Sleep, bitch
+    const sleepMark = `#### ~ ${sleepPhaseStartTime} Go sleep mother fucker, NO SCREENS ~`
+    body.push(sleepMark);
+
+    // For now let's just create a new note, TODO: add updating functionality? idk
+    const date = new Date().toISOString().substring(0, 10);
     // Okay woo this workss (make sure file extension is included)
     const file = app.vault.create(`${date}.quest-log.md`, body.join('\n'));
 
     return file
 }
 
+function getFilesWithTag(app: App, tag: string): TFile[] {
+    const allFiles = app.vault.getFiles();
+    const filesWithTag = allFiles.filter(
+        (file: TFile) => hasTag(app, file, tag)
+    )
+    return filesWithTag;
+}
+
 function hasTag(app: App, file: TFile, tag: string): boolean {
     const tagCaches = app.metadataCache.getFileCache(file)?.tags
     if (!tagCaches) {
-        return false
+        return false;
     }
     for (const tagCache of tagCaches) {
         if (tagCache.tag == tag) {
-            return true
+            return true;
         }
     }
-    
     return false;
   }

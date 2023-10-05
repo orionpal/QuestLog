@@ -14,7 +14,6 @@ export async function generateQuestLog(app: App, settings: QuestLogSettings) {
     const dayPhase1StartTime = `${startHours + 2}` + ':' + startMinutes
     const dayPhase2StartTime = `${startHours + 10}` + ':' + startMinutes
     const nightPhaseStartTime = `${startHours + 14}` + ':' + startMinutes
-    const sleepPhaseStartTime = `${startHours + 16}` + ':' + startMinutes
     
     // Morning phase | 2 hours | upkeep, maintenence, general plan
     const morningMark = `#### ~ ${morningStartTime} Wakeup :D ~` //TODO: Maybe add randomly generated greetings/goodmornings
@@ -39,6 +38,7 @@ export async function generateQuestLog(app: App, settings: QuestLogSettings) {
     const dayMark = `#### ~ ${dayPhase1StartTime} Time to start your day for real >:3 DID YOU EAT??? ~`
     body.push(dayMark)
     body.push(taskFormat + 'placeholder for "being productive"')
+
     
     // Day phase 2 | 4 hours | Maleable, could be pretty much anything
     const dayMark2 = `#### ~ ${dayPhase2StartTime} Good job so far! You can relax a bit :) ~`
@@ -63,10 +63,6 @@ export async function generateQuestLog(app: App, settings: QuestLogSettings) {
     } catch(error) {
         body.push(error)
     }
-    
-    // sleep phase | 8 hours | Sleep, dood
-    const sleepMark = `#### ~ ${sleepPhaseStartTime} Go sleep you walnut, NO SCREENS ~`
-    body.push(sleepMark);
 
     // For now let's just create a new note, TODO: add updating functionality? idk
     const date = new Date().toISOString().substring(0, 10);

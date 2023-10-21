@@ -1,4 +1,4 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
+import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting, TFile } from 'obsidian';
 import { generateQuestLog } from 'generation';
 import { DEFAULT_SETTINGS, QuestLogSettings, QuestLogSettingTab } from 'questlog-settings';
 
@@ -10,10 +10,12 @@ export default class QuestLog extends Plugin {
 		await this.loadSettings();
 
 		// This creates an icon in the left ribbon.
-		const ribbonIconEl = this.addRibbonIcon('clipboard-list', 'Quest Log', (evt: MouseEvent) => {
+		const ribbonIconEl = this.addRibbonIcon('clipboard-list', 'Quest Log', async (evt: MouseEvent) => {
 			// Called when the user clicks the icon. TODO: do I need to add code for mobile use?
-			generateQuestLog(this.app, this.settings);
+			// TODO: Bring user to the newly added note
 			// TODO: this doesn't actually update if there's already an existing file, also I should change the notice to be a bit more informative
+			const questLog = await generateQuestLog(this.app, this.settings);
+			this.app.workspace.getLeaf().openFile(questLog)
 			new Notice("Created or updated today's questlog");
 		});
 		// This adds a settings tab so the user can configure various aspects of the plugin

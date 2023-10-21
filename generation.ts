@@ -28,7 +28,8 @@ export async function generateQuestLog(app: App, settings: QuestLogSettings) {
             // Make sure we're not pulling tags, maybe I should be more strict about the format of the file
             if (line[0]!='#') {
                 body.push(taskFormat + line);
-            }   
+            }
+            // TODO: also omit any empty lines
         }
     } catch(error) {
         body.push(error)
@@ -69,7 +70,7 @@ export async function generateQuestLog(app: App, settings: QuestLogSettings) {
     // Okay woo this workss (make sure file extension is included)
     const file = app.vault.create(`${date}.quest-log.md`, body.join('\n'));
 
-    return file
+    return await file
 }
 
 function getFilesWithTag(app: App, tag: string): TFile[] {
